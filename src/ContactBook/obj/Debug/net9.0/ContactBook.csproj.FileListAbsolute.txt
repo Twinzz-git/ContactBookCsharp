@@ -1,0 +1,14 @@
+c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\bin\Debug\net9.0\ContactBook.exe
+c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\bin\Debug\net9.0\ContactBook.deps.json
+c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\bin\Debug\net9.0\ContactBook.runtimeconfig.json
+c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\bin\Debug\net9.0\ContactBook.dll
+c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\bin\Debug\net9.0\ContactBook.pdb
+c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\obj\Debug\net9.0\ContactBook.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\obj\Debug\net9.0\ContactBook.AssemblyInfoInputs.cache
+c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\obj\Debug\net9.0\ContactBook.AssemblyInfo.cs
+c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\obj\Debug\net9.0\ContactBook.csproj.CoreCompileInputs.cache
+c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\obj\Debug\net9.0\ContactBook.dll
+c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\obj\Debug\net9.0\refint\ContactBook.dll
+c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\obj\Debug\net9.0\ContactBook.pdb
+c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\obj\Debug\net9.0\ContactBook.genruntimeconfig.cache
+c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\obj\Debug\net9.0\ref\ContactBook.dll
