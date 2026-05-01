@@ -12,3 +12,4 @@ c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\obj\Debug\net9.0\
 c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\obj\Debug\net9.0\ContactBook.pdb
 c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\obj\Debug\net9.0\ContactBook.genruntimeconfig.cache
 c:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\obj\Debug\net9.0\ref\ContactBook.dll
+C:\Users\elija\OneDrive\Documentos\ContactBook\src\ContactBook\obj\Debug\net9.0\ContactBook.sourcelink.json

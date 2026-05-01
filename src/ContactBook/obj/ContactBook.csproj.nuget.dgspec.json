@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\elija\\OneDrive\\Documentos\\ContactBook\\src\\ContactBook\\ContactBook.csproj": {}
+    "C:\\Users\\elija\\OneDrive\\Documentos\\ContactBook\\src\\ContactBook\\ContactBook.csproj": {}
   },
   "projects": {
-    "c:\\Users\\elija\\OneDrive\\Documentos\\ContactBook\\src\\ContactBook\\ContactBook.csproj": {
+    "C:\\Users\\elija\\OneDrive\\Documentos\\ContactBook\\src\\ContactBook\\ContactBook.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\elija\\OneDrive\\Documentos\\ContactBook\\src\\ContactBook\\ContactBook.csproj",
+        "projectUniqueName": "C:\\Users\\elija\\OneDrive\\Documentos\\ContactBook\\src\\ContactBook\\ContactBook.csproj",
         "projectName": "ContactBook",
-        "projectPath": "c:\\Users\\elija\\OneDrive\\Documentos\\ContactBook\\src\\ContactBook\\ContactBook.csproj",
+        "projectPath": "C:\\Users\\elija\\OneDrive\\Documentos\\ContactBook\\src\\ContactBook\\ContactBook.csproj",
         "packagesPath": "C:\\Users\\elija\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\elija\\OneDrive\\Documentos\\ContactBook\\src\\ContactBook\\obj\\",
+        "outputPath": "C:\\Users\\elija\\OneDrive\\Documentos\\ContactBook\\src\\ContactBook\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\elija\\AppData\\Roaming\\NuGet\\NuGet.Config"
