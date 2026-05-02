@@ -6,6 +6,10 @@ namespace ContactBook;
 
 public class ContactBook
 {
+    public const string YES = "Y";
+    public const string NO = "N";
+
+    public readonly string[] YES_NO = new string[] { YES, NO };
     public const string NEXT_PAGE = "+";
     public const string PREV_PAGE = "-";
     public const string GOTO_PAGE = "G";
@@ -44,15 +48,11 @@ public class ContactBook
         do
         {
             ShowContact();
+            ShowInputOptions();
+            input = GetInput();
 
-            do
-            {
-                ShowInputOptions();
-                input = GetInput();
-            }
-            while (!IsValidInput(input));
-
-            ProcessInput(input);
+            if (IsValidInput(input))
+                ProcessInput(input);
         }
         while (!ConfirmExit());
 
@@ -61,31 +61,59 @@ public class ContactBook
 
     private void ProcessInput(string input)
     {
-        throw new NotImplementedException();
+        switch (input)
+        {
+            case NEXT_PAGE: NextPage(); break;
+            case PREV_PAGE: PrePage(); break;
+            case GOTO_PAGE: GotoPage(); break;
+            case PAGE_SIZE: PageSize(); break;
+            case CREATE_CONTACT: CreateContacts(); break;
+            case REVIEW_CONTACT: ReviewContacts(); break;
+            case UPDATE_CONTACT: UpdateContacts(); break;
+            case DELETE_CONTACT: DeleteContacts(); break;
+            case FIND_CONTACTS: FindContacts(); break;
+            case ORDER_CONTACTS: OrderContacts(); break;
+            case DEDUPLICATE_CONTACTS: DuplicateContacts(); break;
+            case EXIT: Exit(); break;
+            default: break;
+
+
+        }
     }
+
 
     private bool ConfirmExit()
     {
-        throw new NotImplementedException();
+        return Confirm("Do you want to exit?", NO);
     }
 
     private void ShowExitScreen()
     {
+        Console.Clear();
+        Console.WriteLine(" Thank you for using Samuel Contact Book");
     }
 
-    private bool IsValidInput(string input)
-    {
-        throw new NotImplementedException();
-    }
+    private bool IsValidInput(string input) => COMMANDS.Contains(input.ToUpper());
 
     private void ShowInputOptions()
     {
-        throw new NotImplementedException();
+        Console.WriteLine();
+        Console.WriteLine($"[{NEXT_PAGE}] Next  [{PREV_PAGE}] Prev  [{GOTO_PAGE}] Go to page  [{PAGE_SIZE}] Page size  [{CREATE_CONTACT}] Create");
+        Console.WriteLine($"[{REVIEW_CONTACT}] Review  [{UPDATE_CONTACT}] Update  [{DELETE_CONTACT}] Delete  [{FIND_CONTACTS}] Find  [{ORDER_CONTACTS}] Order  [{DEDUPLICATE_CONTACTS}] Merge  [{EXIT}] Exit");
+
+        Console.Write("Command: ");
     }
 
     private string GetInput()
     {
-        return "";
+        string input = Console.ReadLine()?.Trim().ToUpper() ?? "";
+        if (IsValidInput(input))
+            return input;
+        else
+        {
+            Console.WriteLine($"'{input}' is not a valid command. Please try again.");
+            return input;
+        }
     }
 
     private void ShowContact()
@@ -120,20 +148,19 @@ public class ContactBook
             int e = Math.Clamp(s + size, 0, n);
 
             for (int i = s; i < e; i++)
-
             {
                 Contact c = allContacts[i];
-                Console.WriteLine(""
-                + "{ 0," + indexCol + " }  "
-                + "{ 1," + fnameCol + " }  "
-                + "{ 2," + lnameCol + " }  "
-                + "{ 3," + phoneCol + " }  "
-                + "{ 4," + emailCol + " }  ",
-                    (i + 1), c.GetFName(), c.GetLName(), c.GetPhone(), c.GetEmail());
-
-                Console.WriteLine();
-                Console.WriteLine($"Page {page} of {pagecount} ( {s + 1}- {e} of {n})");
+                Console.WriteLine(string.Format(""
+                    + "{0," + indexCol + "}  "
+                    + "{1," + fnameCol + "}  "
+                    + "{2," + lnameCol + "}  "
+                    + "{3," + phoneCol + "}  "
+                    + "{4," + emailCol + "}",
+                    (i + 1), c.GetFName(), c.GetLName(), c.GetPhone(), c.GetEmail()));
             }
+
+            Console.WriteLine();
+            Console.WriteLine($"Page {page} of {pagecount} ({s + 1}-{e} of {n})");
         }
     }
 
@@ -150,5 +177,98 @@ public class ContactBook
     {
         Console.WriteLine("Welconme to Eli Samuel Contact Book!");
         PressEnterToContinue();
+    }
+
+    private void NextPage()
+    {
+        Console.WriteLine("Next page.");
+    }
+
+    private void PrePage()
+    {
+        Console.WriteLine("Previous page.");
+    }
+
+    private void GotoPage()
+    {
+        Console.WriteLine("Go to page.");
+    }
+
+    private void PageSize()
+    {
+        Console.WriteLine("Page size.");
+    }
+
+    private void CreateContacts()
+    {
+        Console.WriteLine("Create contact.");
+    }
+
+    private void ReviewContacts()
+    {
+        Console.WriteLine("Review contact.");
+    }
+
+    private void UpdateContacts()
+    {
+        Console.WriteLine("Update contact.");
+    }
+
+    private void DeleteContacts()
+    {
+        Console.WriteLine("Delete contact.");
+    }
+
+    private void FindContacts()
+    {
+        Console.WriteLine("Find contacts.");
+    }
+
+    private void OrderContacts()
+    {
+        Console.WriteLine("Order contacts.");
+    }
+
+    private void DuplicateContacts()
+    {
+        Console.WriteLine("Merge duplicate contacts.");
+    }
+
+    private void Exit()
+    {
+        Console.WriteLine("Exit.");
+    }
+
+    private string GetOptions(string prompt, string[] validOption, string defaultOption)
+    {
+        string options = String.Join('/', validOption);
+
+        Console.Write(prompt + $" [{options}] ({defaultOption})");
+
+        string option = Console.ReadLine()!.ToUpper();
+
+        if (string.IsNullOrWhiteSpace(option))
+        {
+            option = defaultOption;
+
+        }
+        while (!validOption.Contains(option))
+        {
+            Console.WriteLine("ERROR: Invalid option. Please try again.");
+            Console.Write(prompt + $" [{options}] ({defaultOption})");
+            Console.Write(prompt);
+
+            option = Console.ReadLine()!.ToUpper();
+
+            if (string.IsNullOrWhiteSpace(option)) { option = defaultOption; }
+
+        }
+
+        return option;
+    }
+
+    private bool Confirm(string prompt, string defaultOption)
+    {
+        return GetOptions(prompt, YES_NO, defaultOption) == YES;
     }
 }
