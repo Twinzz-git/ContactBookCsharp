@@ -94,7 +94,7 @@ public class ContactBook
 
     private void ShowExitScreen()
     {
-        Console.Clear();
+        if (!Console.IsOutputRedirected) Console.Clear();
         Console.WriteLine(" Thank you for using Samuel Contact Book");
     }
 
@@ -127,7 +127,7 @@ public class ContactBook
     }
     private void ShowContacts(List<Contact> contacts, int page, int size)
     {
-        Console.Clear();
+        if (!Console.IsOutputRedirected) Console.Clear();
         if (contacts.Count <= 0)
         {
             Console.WriteLine("No contact found.");
@@ -180,8 +180,12 @@ public class ContactBook
     private void PressEnterToContinue()
     {
         Console.Write("Press ENTER to continue.");
+        if (Console.IsInputRedirected)
+        {
+            Console.ReadLine();
+            return;
+        }
         while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
-
     }
 
 
