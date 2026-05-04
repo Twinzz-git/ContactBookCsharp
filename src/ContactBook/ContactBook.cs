@@ -247,22 +247,109 @@ public class ContactBook
 
     private void ReviewContacts()
     {
-        Console.WriteLine("Review contact.");
+        if (allContacts.Count == 0)
+        {
+            Console.WriteLine("No contacts to review.");
+            PressEnterToContinue();
+            return;
+        }
+        int index = GetInt("Contact number", 1, allContacts.Count);
+        ReviewContact(allContacts[index - 1]);
+    }
+
+    private void ReviewContact(Contact contact)
+    {
+        Console.WriteLine();
+        Console.WriteLine("--- Contact Details ---");
+        Console.WriteLine($"First Name : {contact.GetFName()}");
+        Console.WriteLine($"Last Name  : {contact.GetLName()}");
+        Console.WriteLine($"Phone      : {contact.GetPhone()}");
+        Console.WriteLine($"Email      : {contact.GetEmail()}");
+        Console.WriteLine();
+        PressEnterToContinue();
     }
 
     private void UpdateContacts()
     {
-        Console.WriteLine("Update contact.");
+        if (allContacts.Count == 0)
+        {
+            Console.WriteLine("No contacts to update.");
+            PressEnterToContinue();
+            return;
+        }
+        int index = GetInt("Contact number", 1, allContacts.Count);
+        UpdateContact(allContacts[index - 1]);
+    }
+
+    private void UpdateContact(Contact contact)
+    {
+        ReviewContact(contact);
+
+        Console.WriteLine("--- Update Contact (press ENTER to keep current value) ---");
+        string fname = GetString("First name", contact.GetFName());
+        string lname = GetString("Last name", contact.GetLName());
+        string phone = GetString("Phone",      contact.GetPhone());
+        string email = GetString("Email",      contact.GetEmail());
+
+        if (Confirm("Save changes?", YES))
+        {
+            contact.SetFName(fname);
+            contact.SetLName(lname);
+            contact.SetPhone(phone);
+            contact.SetEmail(email);
+        }
     }
 
     private void DeleteContacts()
     {
-        Console.WriteLine("Delete contact.");
+        if (allContacts.Count == 0)
+        {
+            Console.WriteLine("No contacts to delete.");
+            PressEnterToContinue();
+            return;
+        }
+        int index = GetInt("Contact number", 1, allContacts.Count);
+        DeleteContact(index - 1);
+    }
+
+    private void DeleteContact(int index)
+    {
+        Contact contact = allContacts[index];
+        ReviewContact(contact);
+
+        if (Confirm("Delete this contact?", NO))
+        {
+            allContacts.RemoveAt(index);
+            int pagecount = (int)Math.Max(1, Math.Ceiling(allContacts.Count / (double)size));
+            page = Math.Clamp(page, 1, pagecount);
+        }
     }
 
     private void FindContacts()
     {
-        Console.WriteLine("Find contacts.");
+        string term = GetString("Search");
+        List<Contact> results = FindContact(term);
+
+        if (results.Count == 0)
+        {
+            Console.WriteLine($"No contacts found for '{term}'.");
+            PressEnterToContinue();
+            return;
+        }
+
+        ShowContacts(results, 1, results.Count);
+        PressEnterToContinue();
+    }
+
+    private List<Contact> FindContact(string term)
+    {
+        string t = term.ToLower();
+        return allContacts.Where(c =>
+            (c.GetFName()?.ToLower().Contains(t) ?? false) ||
+            (c.GetLName()?.ToLower().Contains(t) ?? false) ||
+            (c.GetPhone()?.Contains(t) ?? false) ||
+            (c.GetEmail()?.ToLower().Contains(t) ?? false)
+        ).ToList();
     }
 
     private void OrderContacts()
@@ -311,6 +398,13 @@ public class ContactBook
     {
         Console.Write(prompt + ": ");
         return Console.ReadLine()?.Trim() ?? "";
+    }
+
+    private string GetString(string prompt, string current)
+    {
+        Console.Write($"{prompt} [{current}]: ");
+        string input = Console.ReadLine()?.Trim() ?? "";
+        return string.IsNullOrEmpty(input) ? current : input;
     }
 
     private int GetInt(string prompt, int min, int max)
