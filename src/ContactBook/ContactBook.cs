@@ -288,8 +288,8 @@ public class ContactBook
         Console.WriteLine("--- Update Contact (press ENTER to keep current value) ---");
         string fname = GetString("First name", contact.GetFName());
         string lname = GetString("Last name", contact.GetLName());
-        string phone = GetString("Phone",      contact.GetPhone());
-        string email = GetString("Email",      contact.GetEmail());
+        string phone = GetString("Phone", contact.GetPhone());
+        string email = GetString("Email", contact.GetEmail());
 
         if (Confirm("Save changes?", YES))
         {
@@ -354,12 +354,60 @@ public class ContactBook
 
     private void OrderContacts()
     {
-        Console.WriteLine("Order contacts.");
+        ContactComparer.SortType[] sortTypes = new ContactComparer.SortType[]
+        {
+            ContactComparer.SortType.FName,
+            ContactComparer.SortType.LName,
+            ContactComparer.SortType.Phone,
+            ContactComparer.SortType.Email
+        };
+
+        int index = GetInt("Sort Contact by [0] First Name [1] Last Name [2] Phone [3] Email", 0, 3);
+
+        ContactComparer ccp = new ContactComparer(sortTypes[index]);
+        allContacts.Sort(ccp);
+        page = 1;
     }
 
     private void DuplicateContacts()
     {
-        Console.WriteLine("Merge duplicate contacts.");
+        List<List<Contact>> duplicateGroups = ContactMerger.FindDuplicates(allContacts);
+
+        foreach (var group in duplicateGroups)
+        {
+            if (group.Count > 1)
+            {
+                if (!Console.IsOutputRedirected) Console.Clear();
+                ShowContacts(group, 1, group.Count);
+                int fnameIndex = GetInt("Enter first name index", 1, group.Count) - 1;
+                int lnameIndex = GetInt("Enter last name index", 1, group.Count) - 1;
+                int phoneIndex = GetInt("Enter phone index", 1, group.Count) - 1;
+                int emailIndex = GetInt("Enter email index", 1, group.Count) - 1;
+
+                if (Confirm("Do you want to merge these contacts?", NO))
+                {
+                    Contact c = new Contact();
+                    c.SetFName(group[fnameIndex].GetFName());
+                    c.SetLName(group[lnameIndex].GetLName());
+                    c.SetPhone(group[phoneIndex].GetPhone());
+                    c.SetEmail(group[emailIndex].GetEmail());
+
+                    allContacts.RemoveAll(contact => group.Any(g => ReferenceEquals(g, contact)));
+                    allContacts.Add(c);
+                    Console.WriteLine("Operation successful: Contacts merged.");
+                    PressEnterToContinue();
+                }
+
+                else
+                {
+                    Console.WriteLine("Operation cancelled: Contacts not merged");
+                    PressEnterToContinue();
+                }
+            }
+        }
+
+        int pagecount = (int)Math.Max(1, Math.Ceiling(allContacts.Count / (double)size));
+        page = Math.Clamp(page, 1, pagecount);
     }
 
     private void Exit()
